@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://lucide.dev/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>משעמם לי - מוצאים מה לעשות</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Heebo', 'Assistant', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#8b5cf6', // Violet 500
+                dark: '#7c3aed', // Violet 600
+              },
+              secondary: {
+                DEFAULT: '#f43f5e', // Rose 500
+                dark: '#e11d48', // Rose 600
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <!-- Adding Google Fonts for better Hebrew typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Assistant', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Heebo', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.15.0",
+    "fuse.js": "https://esm.sh/fuse.js@7.0.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
