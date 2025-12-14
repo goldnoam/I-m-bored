@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Ghost, Sparkles, Moon, Sun, Dices, RefreshCw, WifiOff, 
   Search, X, Baby, Gamepad2, Smartphone, GraduationCap, 
-  Briefcase, Armchair, ChevronLeft 
+  Briefcase, Armchair, ChevronLeft, Share2 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fuse from 'fuse.js';
@@ -149,6 +149,36 @@ const App: React.FC = () => {
     // We keep preferences in local storage, but clear current activity to go back to selection
     setCurrentActivity(null);
     setIsLuckyMode(false);
+  };
+
+  const handleShare = async () => {
+    if (!currentActivity) return;
+    
+    const shareData = {
+      title: 'משעמם לי - מצאתי מה לעשות!',
+      text: `${currentActivity.text}\n\n${currentActivity.description || ''}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // Ignore AbortError which happens if the user cancels the share dialog
+        if ((err as Error).name !== 'AbortError') {
+          console.error('Share failed:', err);
+        }
+      }
+    } else {
+      // Fallback to clipboard
+      try {
+        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+        // Simple alert for fallback
+        alert('הפעילות הועתקה ללוח!');
+      } catch (err) {
+        console.error('Clipboard failed:', err);
+      }
+    }
   };
 
   // --- Search Logic with Fuzzy Search & Filtering ---
@@ -472,6 +502,16 @@ const App: React.FC = () => {
           
           {/* Header Strip */}
           <div className={`h-3 w-full ${isLuckyMode ? 'bg-yellow-400' : 'bg-gradient-to-r from-primary to-secondary'}`}></div>
+
+          {/* Share Button (absolute positioned) */}
+          <button 
+            onClick={handleShare}
+            className="absolute top-5 left-5 p-2 rounded-full bg-gray-50 dark:bg-slate-700/50 text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-primary dark:hover:text-primary transition-colors z-20"
+            aria-label="שתף פעילות"
+            title="שתף פעילות"
+          >
+            <Share2 className="w-5 h-5" />
+          </button>
           
           <div className="p-8 md:p-12 text-center space-y-6">
             <motion.div 
