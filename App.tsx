@@ -19,6 +19,20 @@ const AGE_ICONS = {
   [AgeGroup.SENIOR]: Armchair,
 };
 
+// --- Category Color Mapping ---
+const CATEGORY_COLORS: Record<Category, string> = {
+  [Category.CREATIVE]: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
+  [Category.PHYSICAL]: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+  [Category.INTELLECTUAL]: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+  [Category.FUN]: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
+  [Category.CHORE]: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+  [Category.SOCIAL]: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+  [Category.OUTDOORS]: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+  [Category.COOKING]: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+  [Category.MUSIC]: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
+  [Category.DIGITAL]: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
+};
+
 const App: React.FC = () => {
   // --- State ---
   const [darkMode, setDarkMode] = useState<boolean>(true);
@@ -280,7 +294,12 @@ const App: React.FC = () => {
                     {act.description && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{act.description}</p>}
                     <div className="flex gap-2 mt-2 flex-wrap">
                       {act.categories.map((c, i) => (
-                        <span key={i} className="text-[10px] px-2 py-0.5 bg-gray-100 dark:bg-slate-700 rounded-full text-gray-500 dark:text-gray-300">{c}</span>
+                        <span 
+                          key={i} 
+                          className={`text-[10px] px-2 py-1 rounded-full font-bold shadow-sm ${CATEGORY_COLORS[c] || 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300'}`}
+                        >
+                          {c}
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -303,6 +322,17 @@ const App: React.FC = () => {
   const renderSelectionScreen = () => (
     <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto space-y-8 p-4">
       
+      {/* Main Heading */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center w-full -mt-4 mb-2"
+      >
+        <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary drop-shadow-sm leading-tight pb-2">
+          באנו לגרש את השיעמום
+        </h2>
+      </motion.div>
+
       {/* Age Selection */}
       <div className="w-full space-y-3">
         <label className="text-lg font-semibold text-gray-700 dark:text-gray-200 block text-center">
@@ -471,7 +501,7 @@ const App: React.FC = () => {
                    whileHover={{ scale: 1.1, backgroundColor: isLuckyMode ? '#FBBF24' : '#8B5CF6', color: '#fff' }}
                    transition={{ delay: 0.3 + (idx * 0.1), type: 'spring', stiffness: 300 }}
                    key={idx} 
-                   className="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm font-medium cursor-default"
+                   className={`px-3 py-1 rounded-full text-sm font-medium cursor-default shadow-sm ${CATEGORY_COLORS[cat] || 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300'}`}
                  >
                    {cat}
                  </motion.span>
